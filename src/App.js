@@ -14,7 +14,14 @@ class App extends React.Component{
     // e.preventDefault();
 
     // let cityData = await axios.get('')
+  // console.log(cityData.data.'');
+  // this.setState({
+    // cityData: cityData.'' 
+  // })
+
   // }
+
+
 
   render(){
     return(
@@ -30,3 +37,5 @@ class App extends React.Component{
 } 
 
 export default App;
+
+
