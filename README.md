@@ -25,4 +25,4 @@ Start time: 6:00Pm CDT
 
 Finish time: 11:00 Pm-12 Am
 
-Actual time needed to complete:
+Actual time needed to complete: 

@@ -41,7 +41,7 @@ class App extends React.Component {
 
       console.log(cityData.data[0]);
 
-      this.setState({cityData: cityData.data[0]});
+      this.setState({cityData: cityData.data[0].display_name});
       this.setState({cityLongitude: cityData.data[0].lon});
       this.setState({cityLatitude: cityData.data[0].lat});
       // IMAGE SRC:
