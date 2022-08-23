@@ -6,9 +6,24 @@ class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {
+      city: '',
       cityData: [],
+
     }
   }
+
+  handleInput = (e) =>{
+    e.preventDefault();
+    this.setState({
+      city: e.target.value
+    })
+  }
+
+  
+
+
+
+
   // Create a handle submit for the city's information.
   // handleGetCity = asynch (e) => {
     // e.preventDefault();
@@ -28,8 +43,17 @@ class App extends React.Component{
       <>
         <h1>City Explorer</h1>
 
-        <form>
-          
+        <form onSubmit={this.handleGetCity}>
+
+          <label> 
+            Pick A City!
+            <input type="text" onInput={this.handleInput} />
+          </label>
+
+          <button type='submit'>
+            Find It!
+          </button>
+
         </form>
       </>
     );
