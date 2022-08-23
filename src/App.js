@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import axios from 'axios';
+// import axios from 'axios';
 
 class App extends React.Component{
   constructor(props){
@@ -9,6 +9,12 @@ class App extends React.Component{
       cityData: [],
     }
   }
+  // Create a handle submit for the city's information.
+  // handleGetCity = asynch (e) => {
+    // e.preventDefault();
+
+    // let cityData = await axios.get('')
+  // }
 
   render(){
     return(
