@@ -69,7 +69,7 @@ class App extends React.Component {
 
     return (
       <>
-        <h1>City Explorer</h1>
+        <h1 className="head">City Explorer</h1>
 
         <form onSubmit={this.handleGetCity}>
 
@@ -78,7 +78,7 @@ class App extends React.Component {
             <input type="text" placeholder="Type Something" onInput={this.handleInput} />
           </label>
 
-          <button type='submit'>
+          <button type='submit' class="btn btn-info">
             Explore!
           </button>
 
