@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import axios from 'axios';
+import { Card } from 'react-bootstrap';
 
 class App extends React.Component {
   constructor(props) {
@@ -9,7 +10,8 @@ class App extends React.Component {
       city: '',
       cityData: [],
       error: false,
-      errorMessage: ''
+      errorMessage: '',
+    
 
     };
   }
@@ -33,11 +35,15 @@ class App extends React.Component {
     try {
 
       let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_CITY_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`
+      
 
       let cityData = await axios.get(url);
 
       console.log(cityData.data[0]);
 
+      this.setState({cityData: cityData.data[0]});
+      this.setState({cityLongitude: cityData.data[0].lon});
+      this.setState({cityLatitude: cityData.data[0].lat});
       // IMAGE SRC:
 
       // 
@@ -61,7 +67,6 @@ class App extends React.Component {
 
   render() {
 
-    let cityResult = this.state.cityData.map(())
     return (
       <>
         <h1>City Explorer</h1>
@@ -78,6 +83,28 @@ class App extends React.Component {
           </button>
 
         </form>
+
+        {
+          this.state.error
+          ?
+          <p>{this.state.errorMessage}</p>
+          :
+          <ul>
+            {/* {cityResult} */}
+          </ul>
+        }
+
+        <Card style={{width: '14rem' }}>
+          <Card.Title>
+            <h2>City: {this.state.city}</h2>
+            <p>City's Latitude: {this.state.cityLatitude}</p>
+            <p>City's Longitude: {this.state.cityLongitude}</p>
+          </Card.Title>
+
+          <Card.Img src= {`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_LOCATIONIQ_KEY}&center=${this.state.cityLatitude},${this.state.cityLongitude}&zoom=10`}></Card.Img>
+        </Card>
+
+
       </>
     );
   }
