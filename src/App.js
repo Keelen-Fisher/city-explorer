@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import axios from 'axios';
 import { Card } from 'react-bootstrap';
+import Weather from './Weather.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class App extends React.Component {
       cityData: [],
       error: false,
       errorMessage: '',
+      weatherData: []
     
 
     };
@@ -35,15 +37,22 @@ class App extends React.Component {
     try {
 
       let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_CITY_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`
-      
-
       let cityData = await axios.get(url);
+
+
+      let weatherURL = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}`;
+
+      let weatherData = await axios.get(weatherURL); 
+      console.log('weatherdata:', weatherData);
+
+
 
       console.log(cityData.data[0]);
 
       this.setState({cityData: cityData.data[0].display_name});
       this.setState({cityLongitude: cityData.data[0].lon});
       this.setState({cityLatitude: cityData.data[0].lat});
+      this.setState({weatherData: weatherData.data});
       // IMAGE SRC:
 
       // 
@@ -103,6 +112,10 @@ class App extends React.Component {
 
           <Card.Img src= {`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_LOCATIONIQ_KEY}&center=${this.state.cityLatitude},${this.state.cityLongitude}&zoom=10`}></Card.Img>
         </Card>
+
+
+        <Weather />
+        <p>{this.state.weatherData[0].date}</p>
 
 
       </>

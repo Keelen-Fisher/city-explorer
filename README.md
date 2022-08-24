@@ -30,12 +30,3 @@ Finish time: 11:00 Pm-12 Am CDT
 Actual time needed to complete:
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Name of feature: Lab 07 Feature
-
-Estimate of time needed to complete: 5-6 hours
-
-Start time: CDT
-
-Finish time: CDT
-
-Actual time needed to complete:
