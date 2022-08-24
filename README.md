@@ -30,3 +30,17 @@ Finish time: 11:00 Pm-12 Am CDT
 Actual time needed to complete:
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Dataflow Image
+
+![wireframe2](public/Image%20of%20WRRC%202%20for%20Lab%2007.png)
+
+Name of feature: Lab 07 Feature
+
+Estimate of time needed to complete: 5-6 hours
+
+Start time: 4:48 Pm CDT
+
+Finish time: 12:20 AM CDT
+
+Actual time needed to complete: 6-8 hours
