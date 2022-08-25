@@ -15,7 +15,9 @@ class App extends React.Component {
       error: false,
       errorMessage: '',
       weatherData: [],
-      showData: false
+      showData: false,
+      cityLongitude: '', 
+      cityLatitude: ''
 
 
     };
@@ -54,8 +56,8 @@ class App extends React.Component {
 
       this.setState({
         cityData: cityData.data[0].display_name, 
-        cityLongitude: weatherData.data[0].lon, 
-        cityLatitude: weatherData.data[0].lat, 
+        cityLongitude: cityData.data[0].lon, 
+        cityLatitude: cityData.data[0].lat, 
         // weatherData: weatherData.data
       })
       // IMAGE SRC:
@@ -81,7 +83,7 @@ class App extends React.Component {
 
 
   render() {
-    //console.log(this.state.weatherData);
+    console.log(this.state);
     // let weather = this.state.weatherData.map(day => {
     // return <li>{day.description}</li>
     // })
@@ -96,7 +98,7 @@ class App extends React.Component {
             <input type="text" placeholder="Type Something" onInput={this.handleInput} />
           </label>
 
-          <button type='submit' class="btn btn-info">
+          <button type='submit' className="btn btn-info">
             Explore!
           </button>
 
