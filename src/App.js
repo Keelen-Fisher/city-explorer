@@ -125,7 +125,7 @@ class App extends React.Component {
             <p>City's Longitude: {this.state.cityLongitude}</p>
           </Card.Title>
 
-          <Card.Img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_LOCATIONIQ_KEY}&center=${this.state.cityLatitude},${this.state.cityLongitude}&zoom=12`}></Card.Img>
+          <Card.Img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_LOCATIONIQ_KEY}&center=${this.state.cityLatitude},${this.state.cityLongitude}&zoom=10`}></Card.Img>
         </Card>
 
 
