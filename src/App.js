@@ -2,7 +2,9 @@ import React from 'react';
 import './App.css';
 import axios from 'axios';
 import { Card } from 'react-bootstrap';
-import Weather from './Weather.js';
+// import Weather from './Weather';
+
+
 
 class App extends React.Component {
   constructor(props) {
@@ -12,8 +14,9 @@ class App extends React.Component {
       cityData: [],
       error: false,
       errorMessage: '',
-      weatherData: []
-    
+      weatherData: [],
+      showData: false
+
 
     };
   }
@@ -40,25 +43,27 @@ class App extends React.Component {
       let cityData = await axios.get(url);
 
 
-      let weatherURL = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}`;
+      let weatherURL = `${process.env.REACT_APP_SERVER}/weather?lat=${cityData.data[0].lat}&lon=${cityData.data[0].lon}`;
 
-      let weatherData = await axios.get(weatherURL); 
+      let weatherData = await axios.get(weatherURL);
       console.log('weatherdata:', weatherData);
 
 
 
       console.log(cityData.data[0]);
 
-      this.setState({cityData: cityData.data[0].display_name});
-      this.setState({cityLongitude: cityData.data[0].lon});
-      this.setState({cityLatitude: cityData.data[0].lat});
-      this.setState({weatherData: weatherData.data});
+
+      this.setState({ cityData: cityData.data[0].display_name });
+      this.setState({ cityLongitude: cityData.data[0].lon });
+      this.setState({ cityLatitude: cityData.data[0].lat });
+      this.setState({ weatherData: weatherData.data });
       // IMAGE SRC:
 
       // 
 
       this.setState({
-        cityData: cityData.data.city,
+        showData: true,
+
         error: false
       });
     }
@@ -75,10 +80,13 @@ class App extends React.Component {
 
 
   render() {
-
+    //console.log(this.state.weatherData);
+    // let weather = this.state.weatherData.map(day => {
+    // return <li>{day.description}</li>
+    // })
     return (
       <>
-        <h1 className="head">City Explorer</h1>
+        <h1>City Explorer</h1>
 
         <form onSubmit={this.handleGetCity}>
 
@@ -93,29 +101,33 @@ class App extends React.Component {
 
         </form>
 
+        
+      
+
+
+        {/* add this into Weather.js, then add .props in the this.state */}
         {
-          this.state.error
-          ?
-          <p>{this.state.errorMessage}</p>
-          :
+          this.state.showData &&
           <ul>
-            {/* {cityResult} */}
+          
+             <li>{this.state.cityData}</li >
+          
           </ul>
         }
 
-        <Card style={{width: '14rem' }}>
+        <Card style={{ width: '14rem' }}>
           <Card.Title>
             <h2>City: {this.state.city}</h2>
             <p>City's Latitude: {this.state.cityLatitude}</p>
             <p>City's Longitude: {this.state.cityLongitude}</p>
           </Card.Title>
 
-          <Card.Img src= {`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_LOCATIONIQ_KEY}&center=${this.state.cityLatitude},${this.state.cityLongitude}&zoom=10`}></Card.Img>
+          <Card.Img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_LOCATIONIQ_KEY}&center=${this.state.cityLatitude},${this.state.cityLongitude}&zoom=10`}></Card.Img>
         </Card>
 
 
-        <Weather />
-        <p>{this.state.weatherData[0].date}</p>
+        {/* <Weather /> */}
+        {/* <p>{this.state.weatherData[0]}</p> */}
 
 
       </>

@@ -44,3 +44,19 @@ Start time: 4:48 Pm CDT
 Finish time: 12:20 AM CDT
 
 Actual time needed to complete: 6-8 hours
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Dataflow Image2
+
+![wireframe3](public/Image%20of%20WRRC%203%20for%20Lab%2008.png)
+
+Name of feature: Lab 08 Feature
+
+Estimate of time needed to complete: 5-6 hours
+
+Start time: 4:50 Pm CDT
+
+Finish time: 12:20 AM CDT
+
+Actual time needed to complete: 6-8 hours
