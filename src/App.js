@@ -52,11 +52,12 @@ class App extends React.Component {
 
       console.log(cityData.data[0]);
 
-
-      this.setState({ cityData: cityData.data[0].display_name });
-      this.setState({ cityLongitude: cityData.data[0].lon });
-      this.setState({ cityLatitude: cityData.data[0].lat });
-      this.setState({ weatherData: weatherData.data });
+      this.setState({
+        cityData: cityData.data[0].display_name, 
+        cityLongitude: weatherData.data[0].lon, 
+        cityLatitude: weatherData.data[0].lat, 
+        // weatherData: weatherData.data
+      })
       // IMAGE SRC:
 
       // 
@@ -101,17 +102,17 @@ class App extends React.Component {
 
         </form>
 
-        
-      
+
+
 
 
         {/* add this into Weather.js, then add .props in the this.state */}
         {
           this.state.showData &&
           <ul>
-          
-             <li>{this.state.cityData}</li >
-          
+
+            <li>{this.state.cityData}</li >
+
           </ul>
         }
 
@@ -122,7 +123,7 @@ class App extends React.Component {
             <p>City's Longitude: {this.state.cityLongitude}</p>
           </Card.Title>
 
-          <Card.Img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_LOCATIONIQ_KEY}&center=${this.state.cityLatitude},${this.state.cityLongitude}&zoom=10`}></Card.Img>
+          <Card.Img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_LOCATIONIQ_KEY}&center=${this.state.cityLatitude},${this.state.cityLongitude}&zoom=12`}></Card.Img>
         </Card>
 
 
