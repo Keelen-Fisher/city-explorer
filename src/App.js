@@ -3,18 +3,22 @@ import './App.css';
 import axios from 'axios';
 import { Card } from 'react-bootstrap';
 import Weather from './Weather.js';
+import Movies from './MoviesP.js';
+// import Weather from './Weather';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      city: '',
-      cityData: [],
+      city: '', //city_name: ''
+      // cityData: {},
+      movieData: {},
       error: false,
       errorMessage: '',
-      weatherData: []
-    
-
+      weatherData: {}, //cityData: {}
+      showData: false,
+      cityLongitude: '',
+      cityLatitude: ''
     };
   }
 
@@ -23,48 +27,40 @@ class App extends React.Component {
     this.setState({
       city: e.target.value
     })
-    console.log(this.state);
-  };
-
-
-
-
-
+  }
 
   // Create a handle submit for the city's information.
   handleGetCity = async (e) => {
     e.preventDefault();
     try {
-
+      // -------------LOCATIONIQ API---------------------------------------------------------------------
       let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_CITY_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`
       let cityData = await axios.get(url);
-
-
-      let weatherURL = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}`;
-
-      let weatherData = await axios.get(weatherURL); 
-      console.log('weatherdata:', weatherData);
-
-
-
-      console.log(cityData.data[0]);
-
-      this.setState({cityData: cityData.data[0].display_name});
-      this.setState({cityLongitude: cityData.data[0].lon});
-      this.setState({cityLatitude: cityData.data[0].lat});
-      this.setState({weatherData: weatherData.data});
-      // IMAGE SRC:
-
-      // 
-
       this.setState({
-        cityData: cityData.data.city,
-        error: false
+        cityData: cityData.data[0].display_name,
+        cityLongitude: cityData.data[0].lon,
+        cityLatitude: cityData.data[0].lat,
       });
-    }
 
+      // ------------WEATHER API FROM SERVER.JS BACKEND---------------------------------------------------------
+
+      let weatherURL = `${process.env.REACT_APP_SERVER}/weather?lat=${cityData.data[0].lat}&lon=${cityData.data[0].lon}`;
+      let weatherData = await axios.get(weatherURL);
+      this.setState({
+        weatherState: weatherData
+      });
+
+
+
+      // ----------MOVIE API FROM SERVER.JS BACKEND--------------------------------------------------------------
+      let movieUrl = `${process.env.REACT_APP_SERVER}/movies?city=${this.state.city_name}`;
+      let movieData = await axios.get(movieUrl);
+      this.setState({
+        movieState: movieData,
+      });
+
+    }
     catch (error) {
-      console.log(error)
       this.setState({
         error: true,
         errorMessage: `An Error Occured: ${error.message}`
@@ -72,58 +68,63 @@ class App extends React.Component {
     }
   }
 
-
-
   render() {
-
+    // let weather = this.state.weatherData.map(day => {
+    // return <li>{day.description}</li>
+    // })
     return (
       <>
-        <h1 className="head">City Explorer</h1>
+        <h1>City Explorer</h1>
 
         <form onSubmit={this.handleGetCity}>
 
-          <label>
-            Pick A City!
+          <label>Pick A City!
             <input type="text" placeholder="Type Something" onInput={this.handleInput} />
           </label>
 
-          <button type='submit' class="btn btn-info">
+          <button type='submit' className="btn btn-info">
             Explore!
           </button>
 
         </form>
 
+        {/* add this into Weather.js, then add .props in the this.state */}
         {
-          this.state.error
-          ?
-          <p>{this.state.errorMessage}</p>
-          :
+          this.state.showData &&
           <ul>
-            {/* {cityResult} */}
+
+            <li>{this.state.cityData}</li >
+
           </ul>
         }
+        <Card style={{ width: '20rem' }}>
 
-        <Card style={{width: '14rem' }}>
           <Card.Title>
             <h2>City: {this.state.city}</h2>
             <p>City's Latitude: {this.state.cityLatitude}</p>
             <p>City's Longitude: {this.state.cityLongitude}</p>
           </Card.Title>
 
-          <Card.Img src= {`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_LOCATIONIQ_KEY}&center=${this.state.cityLatitude},${this.state.cityLongitude}&zoom=10`}></Card.Img>
+          <Card.Img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_LOCATIONIQ_KEY}&center=${this.state.cityLatitude},${this.state.cityLongitude}&zoom=10`}></Card.Img>
+
+          {/* <Card.Text> */}
+              <Weather weatherData={this.state.weatherData} />
+          {/* </Card.Text> */}
+
+          {/* <Card.Text> */}
+            <Movies movieData={this.state.movieState} />
+          {/* </Card.Text> */}
+
         </Card>
 
 
-        <Weather />
-        <p>{this.state.weatherData[0].date}</p>
-
-
+        {/* <Weather /> */}
+        {/* <p>{this.state.weatherData[0]}</p> */}
       </>
     );
   }
 
 }
-
 export default App;
 
 
