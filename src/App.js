@@ -10,12 +10,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      city: '',
+      city: '', //city_name: ''
       // cityData: {},
       movieData: {},
       error: false,
       errorMessage: '',
-      weatherData: {},
+      weatherData: {}, //cityData: {}
       showData: false,
       cityLongitude: '',
       cityLatitude: ''
@@ -36,23 +36,19 @@ class App extends React.Component {
       // -------------LOCATIONIQ API---------------------------------------------------------------------
       let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_CITY_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`
       let cityData = await axios.get(url);
-
-      let weatherURL = `${process.env.REACT_APP_SERVER}/weather?lat=${cityData.data[0].lat}&lon=${cityData.data[0].lon}`;
-      let weatherData = await axios.get(weatherURL);
-      console.log('weatherdata:', weatherData);
-      console.log(cityData.data[0]);
-
       this.setState({
         cityData: cityData.data[0].display_name,
         cityLongitude: cityData.data[0].lon,
         cityLatitude: cityData.data[0].lat,
-        weatherState: weatherData
-        // weatherData: weatherData.data
       });
 
       // ------------WEATHER API FROM SERVER.JS BACKEND---------------------------------------------------------
 
-      
+      let weatherURL = `${process.env.REACT_APP_SERVER}/weather?lat=${cityData.data[0].lat}&lon=${cityData.data[0].lon}`;
+      let weatherData = await axios.get(weatherURL);
+      this.setState({
+        weatherState: weatherData
+      });
 
 
 
@@ -65,7 +61,6 @@ class App extends React.Component {
 
     }
     catch (error) {
-      console.log(error)
       this.setState({
         error: true,
         errorMessage: `An Error Occured: ${error.message}`
@@ -74,7 +69,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     // let weather = this.state.weatherData.map(day => {
     // return <li>{day.description}</li>
     // })
@@ -113,21 +107,19 @@ class App extends React.Component {
 
           <Card.Img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_LOCATIONIQ_KEY}&center=${this.state.cityLatitude},${this.state.cityLongitude}&zoom=10`}></Card.Img>
 
-          <Card.Text>
-            <>
-              <Weather weatherData={this.state.weatherData}/>
-            </>
-          </Card.Text>
+          {/* <Card.Text> */}
+              <Weather weatherData={this.state.weatherData} />
+          {/* </Card.Text> */}
 
-          <Card.Text>
-            <Movies movieData = {this.state.movieState}/>
-          </Card.Text>
+          {/* <Card.Text> */}
+            <Movies movieData={this.state.movieState} />
+          {/* </Card.Text> */}
 
         </Card>
 
 
         {/* <Weather /> */}
-        <p>{this.state.weatherData[0]}</p>
+        {/* <p>{this.state.weatherData[0]}</p> */}
       </>
     );
   }

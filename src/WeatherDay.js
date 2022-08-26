@@ -5,7 +5,7 @@ class WeatherDay extends React.Component {
     return (
       <Card>
 
-        {this.props.cityData.data && this.props.cityData.data.map ((v, i) =>
+        {this.props.WeatherState && this.props.WeatherState.map ((v, i) =>
           <p key={i}>{v.date} {v.description}</p>)}
 
       </Card>

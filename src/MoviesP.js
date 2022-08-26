@@ -6,7 +6,7 @@ class Movies extends React.Component{
     return(
     <Card>
 
-      {this.props.movieState.data && this.props.movieState.data.map ((v,i) => 
+      {this.props.movieState && this.props.movieState.map ((v,i) => 
       <Card.Text key={i}>
         {v.name} {v.overview}
       </Card.Text>
