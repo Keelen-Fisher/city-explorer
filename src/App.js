@@ -11,12 +11,12 @@ class App extends React.Component {
     super(props);
     this.state = {
       city: '', //city_name: ''
-      // cityData: {},
-      movieData: {},
       error: false,
-      errorMessage: '',
-      weatherData: {}, //cityData: {}
       showData: false,
+      errorMessage: '',
+      // Can't use empty object 
+      weatherData: [], //cityData: []
+      movieData: [],
       cityLongitude: '',
       cityLatitude: ''
     };
@@ -69,9 +69,9 @@ class App extends React.Component {
   }
 
   render() {
-    // let weather = this.state.weatherData.map(day => {
-    // return <li>{day.description}</li>
-    // })
+    
+    
+    
     return (
       <>
         <h1>City Explorer</h1>
@@ -108,6 +108,7 @@ class App extends React.Component {
           <Card.Img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_LOCATIONIQ_KEY}&center=${this.state.cityLatitude},${this.state.cityLongitude}&zoom=10`}></Card.Img>
 
           {/* <Card.Text> */}
+          {/* The variable that you set equal to the object: will be in your {this.state.<vairable name>} */}
               <Weather weatherData={this.state.weatherData} />
           {/* </Card.Text> */}
 
