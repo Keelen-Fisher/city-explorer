@@ -3,7 +3,7 @@ import './App.css';
 import axios from 'axios';
 import { Card } from 'react-bootstrap';
 import Weather from './Weather.js';
-import Movies from './MoviesP.js';
+import Movie from './Movie.js';
 // import Weather from './Weather';
 
 class App extends React.Component {
@@ -15,10 +15,14 @@ class App extends React.Component {
       showData: false,
       errorMessage: '',
       // Can't use empty object 
-      weatherData: [], //cityData: []
+      weatherData: [], 
       movieData: [],
-      cityLongitude: '',
-      cityLatitude: ''
+      cityLongitude: '-95.3676974',
+      cityLatitude: '29.7589382',
+      cityData: [],
+      showWeather: true,
+      showMovie: true,
+      
     };
   }
 
@@ -36,28 +40,31 @@ class App extends React.Component {
       // -------------LOCATIONIQ API---------------------------------------------------------------------
       let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_CITY_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`
       let cityData = await axios.get(url);
+      let weatherURL = `${process.env.REACT_APP_SERVER}/weather?lat=${cityData.data[0].lat}&lon=${cityData.data[0].lon}`;
+      let weatherData = await axios.get(weatherURL);
+      let movieUrl = `${process.env.REACT_APP_SERVER}/movies?city=${this.state.city}`;
+      let movieData = await axios.get(movieUrl);
+      
+      
       this.setState({
-        cityData: cityData.data[0].display_name,
+        city: cityData.data[0].display_name,
+        cityData: cityData.data[0],
         cityLongitude: cityData.data[0].lon,
         cityLatitude: cityData.data[0].lat,
+        weatherData: weatherData.data,
+        movieData: movieData.data
       });
 
       // ------------WEATHER API FROM SERVER.JS BACKEND---------------------------------------------------------
 
-      let weatherURL = `${process.env.REACT_APP_SERVER}/weather?lat=${cityData.data[0].lat}&lon=${cityData.data[0].lon}`;
-      let weatherData = await axios.get(weatherURL);
-      this.setState({
-        weatherState: weatherData
-      });
-
 
 
       // ----------MOVIE API FROM SERVER.JS BACKEND--------------------------------------------------------------
-      let movieUrl = `${process.env.REACT_APP_SERVER}/movies?city=${this.state.city_name}`;
-      let movieData = await axios.get(movieUrl);
-      this.setState({
-        movieState: movieData,
-      });
+      // let movieUrl = `${process.env.REACT_APP_SERVER}/movies?city=${this.state.city_name}`;
+      // let movieData = await axios.get(movieUrl);
+      // this.setState({
+        // movieState: movieData,
+      // });
 
     }
     catch (error) {
@@ -109,14 +116,18 @@ class App extends React.Component {
 
           {/* <Card.Text> */}
           {/* The variable that you set equal to the object: will be in your {this.state.<vairable name>} */}
-              <Weather weatherData={this.state.weatherData} />
+              {/* <Weather weatherData={this.state.weatherData} /> */}
           {/* </Card.Text> */}
 
           {/* <Card.Text> */}
-            <Movies movieData={this.state.movieState} />
+            {/* <Movies movieData={this.state.movieState} /> */}
           {/* </Card.Text> */}
 
         </Card>
+
+        {this.state.showWeather && <Weather weatherData={this.state.weatherData} />}
+        {this.state.showMovie && <Movie movieData={this.state.movieData}/>}
+
 
 
         {/* <Weather /> */}
