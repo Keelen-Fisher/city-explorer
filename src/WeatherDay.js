@@ -1,14 +1,22 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+
+
 class WeatherDay extends React.Component {
   render() {
     return (
-      <Card>
 
-        {this.props.WeatherData && this.props.WeatherData.map ((v, i) =>
-          <p key={i}>{v.date} {v.description}</p>)}
+      <ListGroup>
+        <ListGroup.Item>Weather Report: </ListGroup.Item>
+        <ListGroup.Item>{this.props.value.date}</ListGroup.Item>
+        <ListGroup.Item>{this.props.value.description}</ListGroup.Item>
+        <ListGroup.Item>{this.props.value.lowtemp}</ListGroup.Item>
+        <ListGroup.Item>{this.props.value.temp}</ListGroup.Item>
 
-      </Card>
+
+      </ListGroup>
+
+
     );
   }
 }
