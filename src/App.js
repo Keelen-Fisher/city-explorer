@@ -22,7 +22,7 @@ class App extends React.Component {
       cityData: [],
       showWeather: true,
       showMovie: true,
-      
+
     };
   }
 
@@ -122,6 +122,7 @@ class App extends React.Component {
           {/* <Card.Text> */}
             {/* <Movies movieData={this.state.movieState} /> */}
           {/* </Card.Text> */}
+          
 
         </Card>
 

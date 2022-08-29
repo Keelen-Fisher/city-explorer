@@ -8,10 +8,10 @@ class WeatherDay extends React.Component {
 
       <ListGroup>
         <ListGroup.Item>Weather Report: </ListGroup.Item>
-        <ListGroup.Item>{this.props.value.date}</ListGroup.Item>
-        <ListGroup.Item>{this.props.value.description}</ListGroup.Item>
+        <ListGroup.Item>Date: {this.props.value.date}</ListGroup.Item>
+        <ListGroup.Item>Description: {this.props.value.description}</ListGroup.Item>
         <ListGroup.Item>{this.props.value.lowtemp}</ListGroup.Item>
-        <ListGroup.Item>{this.props.value.temp}</ListGroup.Item>
+        <ListGroup.Item>Temperature For the Day:{this.props.value.temp}</ListGroup.Item>
 
 
       </ListGroup>
