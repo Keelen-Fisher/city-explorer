@@ -62,9 +62,9 @@ class App extends React.Component {
       // ----------MOVIE API FROM SERVER.JS BACKEND--------------------------------------------------------------
       // let movieUrl = `${process.env.REACT_APP_SERVER}/movies?city=${this.state.city_name}`;
       // let movieData = await axios.get(movieUrl);
-      // this.setState({
-        // movieState: movieData,
-      // });
+      this.setState({
+        movieState: movieData,
+      });
 
     }
     catch (error) {
