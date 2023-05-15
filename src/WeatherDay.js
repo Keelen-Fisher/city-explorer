@@ -1,20 +1,31 @@
 import React from 'react';
-import ListGroup from 'react-bootstrap/ListGroup';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Card from 'react-bootstrap/Card';
 
 
 class WeatherDay extends React.Component {
   render() {
     return (
+      <>
 
-      <ListGroup>
-        <ListGroup.Item>Weather Report: </ListGroup.Item>
-        <ListGroup.Item>Date: {this.props.value.date}</ListGroup.Item>
-        <ListGroup.Item>Description: {this.props.value.description}</ListGroup.Item>
-        <ListGroup.Item>{this.props.value.lowtemp}</ListGroup.Item>
-        <ListGroup.Item>Temperature For the Day:{this.props.value.temp}</ListGroup.Item>
+        <Card
+          style={{ width: '12rem' }}
+        >
+          {/* <Card.Img variant="top" /> */}
+          <Card.Body>
+            <Card.Text>Weather Report: </Card.Text>
+            <Card.Text>Date: {this.props.value.date}</Card.Text>
+            <Card.Text>Description: {this.props.value.description}</Card.Text>
+
+            <Card.Text>Temperature For the Day:</Card.Text>
+            <Card.Text>Low:{this.props.value.lowTemp}</Card.Text>
+            <Card.Text>High:{this.props.value.highTemp}</Card.Text>
+          </Card.Body>
 
 
-      </ListGroup>
+        </Card>
+
+      </>
 
 
     );
