@@ -59,6 +59,7 @@ class App extends React.Component {
       // -------------LOCATIONIQ API---------------------------------------------------------------------
       let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_CITY_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`
       let cityData = await axios.get(url);
+      // after the question mark on the url, this is representing the query parameters, which will be connected to the backend because of process.env.REACT_APP_SERVER connection
       let weatherURL = `${process.env.REACT_APP_SERVER}/weather?lat=${cityData.data[0].lat}&lon=${cityData.data[0].lon}`;
       let weatherData = await axios.get(weatherURL);
 
